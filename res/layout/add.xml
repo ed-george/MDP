@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp" >
+
+    <EditText
+        android:id="@+id/first_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/first_name"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/number"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/tel_num"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@android:drawable/bottom_bar"
+            android:gravity="center_horizontal" >
+
+            <ImageButton
+                android:id="@+id/add_con"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:contentDescription="@string/add"
+                android:src="@drawable/follow"
+                android:text="@string/add" />
+
+            <ImageButton
+                android:id="@+id/del_con"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:contentDescription="@string/del"
+                android:src="@drawable/delete"
+                android:text="@string/del" />
+            
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
