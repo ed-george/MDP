@@ -3,8 +3,6 @@ package ed.george.addressbook;
 
 import java.util.ArrayList;
 
-import ed.george.addressbook.R;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -18,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 
 public class AddressFragment extends ListFragment {
@@ -71,9 +68,6 @@ public class AddressFragment extends ListFragment {
 	@Override
 	public void onListItemClick(ListView list, View v, int position, long id) {
 
-		Toast.makeText(getActivity(), Integer.toString(position), Toast.LENGTH_LONG).show();
-
-
 		Contact x = listcontacts.get(position);
 		call = x.getNumber();
 		AlertDialog.Builder builder = new AlertDialog.Builder(a);
@@ -106,7 +100,7 @@ public class AddressFragment extends ListFragment {
 
 	};
 
-
+	
 
 
 }

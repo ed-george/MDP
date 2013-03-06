@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,21 +21,21 @@ public class AddFragment extends Fragment {
 
 	View v;
 	Activity a;
-	
-	
+
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
 
-		
+
 
 		v = inflater.inflate(R.layout.add, container, false);
 
 		return v;
 
 	}
-	
+
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
@@ -47,48 +49,91 @@ public class AddFragment extends Fragment {
 		final EditText fn = (EditText) v.findViewById(R.id.first_name);
 		final EditText nu = (EditText) v.findViewById(R.id.number);
 		final EditText em = (EditText) v.findViewById(R.id.email);
+
+		final ImageButton addBut = (ImageButton) v.findViewById(R.id.add_con);
+		final ImageButton delBut = (ImageButton) v.findViewById(R.id.del_con);
+		delBut.setEnabled(false); //default
+
+		fn.addTextChangedListener(new TextWatcher(){
+			public void afterTextChanged(Editable s) {
+				if (fn.getText().toString().length() + nu.getText().toString().length() + em.getText().toString().length() > 0){
+					delBut.setEnabled(true);
+				}else{
+					delBut.setEnabled(false);
+				}
+			}
+			public void beforeTextChanged(CharSequence s, int start, int count, int after){}
+			public void onTextChanged(CharSequence s, int start, int before, int count){}
+		}); 
 		
-		ImageButton addBut = (ImageButton) v.findViewById(R.id.add_con);
+		nu.addTextChangedListener(new TextWatcher(){
+			public void afterTextChanged(Editable s) {
+				if (fn.getText().toString().length() + nu.getText().toString().length() + em.getText().toString().length() > 0){
+					delBut.setEnabled(true);
+				}else{
+					delBut.setEnabled(false);
+				}
+			}
+			public void beforeTextChanged(CharSequence s, int start, int count, int after){}
+			public void onTextChanged(CharSequence s, int start, int before, int count){}
+		}); 
+		
+		em.addTextChangedListener(new TextWatcher(){
+			public void afterTextChanged(Editable s) {
+				if (fn.getText().toString().length() + nu.getText().toString().length() + em.getText().toString().length() > 0){
+					delBut.setEnabled(true);
+				}else{
+					delBut.setEnabled(false);
+				}
+			}
+			public void beforeTextChanged(CharSequence s, int start, int count, int after){}
+			public void onTextChanged(CharSequence s, int start, int before, int count){}
+		}); 
+
+
 		addBut.setOnClickListener(new View.OnClickListener() {                       
 			@Override
 			public void onClick(View v) {
-				
+
 				if (fn.getText().toString().equals("") || nu.getText().toString().equals("")){
 					AlertDialog.Builder builder = new AlertDialog.Builder(a);
 					builder.setMessage("Required fields not complete!").setPositiveButton("OK", dialogClickListener).show();
 					Log.d("BUTTON", "ONE OR MORE EMPTY");
-					
+
 				}else{
-					
+
 					String email;
 					if (em.getText().toString().equals("")){
 						email = null;
 					}else{
 						email = em.getText().toString();
 					}
-					
+
 					//Surprise Muddatrucker. It's Databasing time!
-					
+
 					DBHelper dbhelper = new DBHelper(a, "addressBook", null, 1);
 					SQLiteDatabase db = dbhelper.getWritableDatabase();
 					db.execSQL("INSERT INTO addressBook (name,number,email) " +
-							   "VALUES " +
-							   "('" + fn.getText().toString() +  "', '" + nu.getText().toString() + 
-							   "','"+ email +"');");
+							"VALUES " +
+							"('" + fn.getText().toString() +  "', '" + nu.getText().toString() + 
+							"','"+ email +"');");
 					MainActivity x = (MainActivity) getActivity();
 					x.genContactList();
 					Toast.makeText(getActivity(), "Contact Added!", Toast.LENGTH_SHORT).show();
 					newPage();
-					
+					db.close();
+					dbhelper.close();
+
 				}
-				
-				
+
+
 				Log.d("BUTTON", "ADD PRESSED");
 			}
 
 		});
-		
-		ImageButton delBut = (ImageButton) v.findViewById(R.id.del_con);
+
+
+
 		delBut.setOnClickListener(new View.OnClickListener() {                       
 			@Override
 			public void onClick(View v) {
@@ -99,10 +144,10 @@ public class AddFragment extends Fragment {
 			}
 
 		});
-		
-		
+
+
 	}
-	
+
 	DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
 
 		@Override
@@ -132,6 +177,5 @@ public class AddFragment extends Fragment {
 		//transaction.addToBackStack(null);
 		transaction.commit();
 	}
-	//	
-	//	Cursor c = db.query("addressBook", new String[] { "id", "name" }, "name LIKE 'Hillary%'", null, null, null,"name");
+	
 }

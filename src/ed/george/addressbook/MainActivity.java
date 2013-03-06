@@ -7,14 +7,7 @@ import android.app.FragmentTransaction;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
 
@@ -48,6 +41,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			while(c.moveToNext());
 		}
 		setContactList(newcont);
+		dbHelper.close();
+		db.close();
 	}
 
 	@Override
@@ -66,7 +61,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		actionBar.addTab(actionBar.newTab().setText(R.string.title_section2).setTabListener(this));
 		actionBar.addTab(actionBar.newTab().setText(R.string.title_section3).setTabListener(this));
 
-
 	}
 
 
@@ -84,11 +78,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 				getActionBar().getSelectedNavigationIndex());
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_main, menu);
-		return true;
-	}
+
 
 
 
@@ -110,41 +100,16 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			AddFragment test = new AddFragment();
 			getSupportFragmentManager().beginTransaction().replace(R.id.container, test).commit();
 		} 
-		else {
-			/**
-			 * Other tabs will show duffy fragments
-			 */
-			Fragment fragment = new DummySectionFragment();
-			Bundle args = new Bundle();
-			args.putInt(DummySectionFragment.ARG_SECTION_NUMBER, tab.getPosition() + 1);
-			fragment.setArguments(args);
-			getSupportFragmentManager().beginTransaction()
-			.replace(R.id.container, fragment)
-			.commit();
-		}
+		else if (tab.getPosition() == 2) {
+			ContactListFragment clf = new ContactListFragment();
+			getSupportFragmentManager().beginTransaction().replace(R.id.container, clf).commit();
+		} 
+		
 	}
 
 	@Override
 	public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
 	}
 
-	/**
-	 * A dummy fragment representing a section of the app, but that simply displays dummy text.
-	 */
-	public static class DummySectionFragment extends Fragment {
-		public DummySectionFragment() {
-		}
 
-		public static final String ARG_SECTION_NUMBER = "section_number";
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			TextView textView = new TextView(getActivity());
-			textView.setGravity(Gravity.CENTER);
-			Bundle args = getArguments();
-			textView.setText(Integer.toString(args.getInt(ARG_SECTION_NUMBER)));
-			return textView;
-		}
-	}
 }

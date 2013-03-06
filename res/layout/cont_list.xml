@@ -6,26 +6,43 @@
     android:paddingLeft="8dp"
     android:paddingRight="8dp" >
 
-    <EditText
-        android:id="@+id/first_name"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/first_name"
-        android:inputType="text" />
+	<TextView
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center_horizontal"
+	    android:text="@string/first_name"
+	    android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/number"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/tel_num"
-        android:inputType="number" />
+	<TextView
+	    android:id="@+id/list_first_name"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center_horizontal" />
 
-    <EditText
-        android:id="@+id/email"
+		<TextView
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:text="@string/tel_num"
+		    android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/list_number"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/email"
-        android:inputType="textEmailAddress" />
+      />
+
+    	<TextView
+    	    android:layout_width="fill_parent"
+    	    android:layout_height="wrap_content"
+    	    android:text="@string/email"
+    	    android:id="@+id/email_bold"
+    	    android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/list_email"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,24 +52,25 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            
             android:gravity="center_horizontal" >
-<!--  android:background="@android:drawable/bottom_bar" -->
+<!-- android:background="@android:drawable/bottom_bar" -->
             <ImageButton
-                android:id="@+id/add_con"
+                android:id="@+id/but_left"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.0"
                 android:contentDescription="@string/add"
-                android:src="@drawable/follow"
+                android:src="@drawable/left"
                 android:text="@string/add" />
 
             <ImageButton
-                android:id="@+id/del_con"
+                android:id="@+id/but_right"
                 android:layout_width="0dip"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.0"
                 android:contentDescription="@string/del"
-                android:src="@drawable/delete"
+                android:src="@drawable/right"
                 android:text="@string/del" />
             
         </LinearLayout>

@@ -26,21 +26,11 @@ public class DBHelper extends SQLiteOpenHelper
 				"email VARCHAR(128)" +
 				");");
 		
-		db.execSQL("INSERT INTO addressBook (name,number,email) " +
-				   "VALUES " +
-				   "('Martina', '(822) 671-6691','mart@mail.com');");
+
 		db.execSQL("INSERT INTO addressBook (name,number,email) " +
 				   "VALUES " +
 				   "('Ed George' ,'07791887132','ed@mail.com');");
-//		db.execSQL("INSERT INTO addressBook (name,number,email) " +
-//				   "VALUES " +
-//				   "('Craig','(855) 367-1782','mart@mail.com');");
-//		db.execSQL("INSERT INTO addressBook (name,number,email) " +
-//				   "VALUES " +
-//				   "('Barry','(833) 383-7651','mart@mail.com');");
-//		db.execSQL("INSERT INTO addressBook (name,number,email) " +
-//				   "VALUES " +
-//				   "('Edward','(855) 137-6049','mart@mail.com');");
+
 		
 		
 		
