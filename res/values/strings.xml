@@ -8,6 +8,7 @@
     <string name="add">Add</string>
     <string name="del">Delete</string>
     <string name="del_con">Delete Contact</string>
+    <string name="msg_con">Call/Msg Contact</string>
     <string name="no_data">You have no contacts!</string>
     
     <string name="first_name">Contact Name</string>

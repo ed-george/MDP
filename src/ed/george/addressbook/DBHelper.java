@@ -29,7 +29,7 @@ public class DBHelper extends SQLiteOpenHelper
 
 		db.execSQL("INSERT INTO addressBook (name,number,email) " +
 				   "VALUES " +
-				   "('Ed George' ,'07791887132','ed@mail.com');");
+				   "('Ed George' ,'07791987132','ed@mail.com');");
 
 		
 		

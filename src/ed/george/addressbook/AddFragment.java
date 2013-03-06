@@ -107,20 +107,29 @@ public class AddFragment extends Fragment {
 						email = null;
 					}else{
 						email = em.getText().toString();
+						email = email.replaceAll(";", "").replaceAll("'", "");
+					
+						//Prevent SQL injection!?
 					}
 
 					//Surprise Muddatrucker. It's Databasing time!
-
+					
+					String n = fn.getText().toString();
+					n = n.replaceAll(";", "").replaceAll("'", "").replaceAll("-", "");
+					//again, protect sql injection
+					
 					DBHelper dbhelper = new DBHelper(a, "addressBook", null, 1);
 					SQLiteDatabase db = dbhelper.getWritableDatabase();
 					db.execSQL("INSERT INTO addressBook (name,number,email) " +
 							"VALUES " +
-							"('" + fn.getText().toString() +  "', '" + nu.getText().toString() + 
+							"('" + n  +  "', '" + nu.getText().toString() + 
 							"','"+ email +"');");
 					MainActivity x = (MainActivity) getActivity();
-					x.genContactList();
+					x.genContactList(); //refresh arraylist
 					Toast.makeText(getActivity(), "Contact Added!", Toast.LENGTH_SHORT).show();
 					newPage();
+					
+					//Shut the door on your way out! KTHX
 					db.close();
 					dbhelper.close();
 
@@ -173,7 +182,7 @@ public class AddFragment extends Fragment {
 		FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
 		transaction.replace(R.id.container, newfrag);
-		//Go back?
+		//Could allow you to go back?
 		//transaction.addToBackStack(null);
 		transaction.commit();
 	}

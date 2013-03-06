@@ -7,6 +7,12 @@
         android:icon="@drawable/delete"
         android:showAsAction="ifRoom"
         android:title="@string/del_con"/>
+     <item
+        android:id="@+id/callbutt"
+        android:icon="@drawable/contact"
+        android:showAsAction="ifRoom"
+        android:title="@string/msg_con"/>
+   
    
 
 </menu>

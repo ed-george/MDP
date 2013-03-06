@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -206,6 +208,40 @@ public class ContactListFragment extends Fragment {
 		}
 
 	};
+	
+	
+	DialogInterface.OnClickListener callClickListener = new DialogInterface.OnClickListener() {
+
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			
+			MainActivity ma = (MainActivity) getActivity();
+			final ArrayList<Contact> contacts = ma.getContactList();
+			String number = contacts.get(personindex).getNumber();
+			
+			switch (which){
+			case DialogInterface.BUTTON_POSITIVE:
+				//call
+				Intent callIntent = new Intent(Intent.ACTION_CALL);
+				callIntent.setData(Uri.parse("tel:" + number ));
+				startActivity(callIntent);
+				break;
+				
+			case DialogInterface.BUTTON_NEUTRAL:
+				//message
+				Intent msgIntent = new Intent(Intent.ACTION_VIEW);
+				msgIntent.setData(Uri.parse("sms:" + number ));
+				startActivity(msgIntent);
+				break;
+				
+			case DialogInterface.BUTTON_NEGATIVE:
+				//Do nothing!
+				break;
+
+			}
+		}
+
+	};
 
 	
 
@@ -217,7 +253,10 @@ public class ContactListFragment extends Fragment {
 
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
-
+		if(safetycatch){
+			return false; //Not great practice but running out of patience!
+		}
+		
 		switch (item.getItemId())
 		{
 
@@ -228,6 +267,13 @@ public class ContactListFragment extends Fragment {
 			.setNegativeButton("No", dialogClickListener).show();
 			return true;
 
+		case R.id.callbutt:	
+			AlertDialog.Builder builderII = new AlertDialog.Builder(a);
+			builderII.setMessage("Call or Message Contact?").setPositiveButton("Call", callClickListener).setNeutralButton("Message", callClickListener)
+			.setNegativeButton("Cancel", callClickListener).show();
+			
+			return true;
+			
 		default:
 			//shouldnt matter but #YOLO
 			return super.onOptionsItemSelected(item);
